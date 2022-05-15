@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Soutenance index{% endblock %}
+
+{% block body %}
+    <h1>Soutenances</h1>
+
+    <table class="table">
+        <thead>
+            <tr class="table-primary">
+                <th>Num Jury</th>
+                <th>Jury</th>
+                <th>Date Soutenance</th>
+                <th>Note</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for soutenance in soutenances %}
+            <tr>
+                <td>{{ soutenance.id }}</td>
+                <td>
+                    {{ soutenance.matricule.nom }}
+                    {{ soutenance.matricule.prenom }}
+                </td>
+                <td>{{ soutenance.dateSoutenance ? soutenance.dateSoutenance|date('Y-m-d') : '' }}</td>
+                <td>{{ soutenance.note }}</td>
+                <td>
+                    <a href="{{ path('app_soutenance_show', {'id': soutenance.id}) }}">Afficher</a>
+                    <a href="{{ path('app_soutenance_edit', {'id': soutenance.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_soutenance_new') }}">Ajouter</a>
+{% endblock %}
